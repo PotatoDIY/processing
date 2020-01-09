@@ -11,7 +11,7 @@ class Fire {
   }
   void update() {
     y-=speed;
-    speed+=0.2;
+    speed+=0.1;
     if (y<=0) {
       die=true;
     }

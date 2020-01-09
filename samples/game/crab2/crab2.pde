@@ -3,13 +3,12 @@ ArrayList<Obj> objs;
 ArrayList<Gift> gifts;
 int objtime=0;
 int gifttime=0;
-String gameover = "GAME OVER";
-String gameoverinfo = "press key 'R' to Restart";
 PFont font80, font30;
 boolean loop=false;
 int killed_obj;
+Screen screen;
 void setup() {
-  
+  screen = new Screen();
   //font80 = createFont(PFont.list()[2], 80);
   //font30 = createFont(PFont.list()[2], 30);
   font80=createFont("SourceSansPro-Light.ttf", 80);
@@ -19,7 +18,7 @@ void setup() {
   //size(displayWidth,displayHeight);
   ellipseMode(CENTER);
   imageMode(CENTER);
-  init();
+  screen.ready();
 }
 
 void init() {
@@ -32,7 +31,7 @@ void init() {
 
 void draw() {
   if (loop) {
-    background(128,128,128);
+    background(128, 128, 128);
     objtime+=1;
     gifttime+=1;
     //print(time);
@@ -45,7 +44,7 @@ void draw() {
       gifts.add(new Gift(random(50, width-50), 0));
       gifttime=0;
     }
-    
+
     for (int i=0; i<objs.size(); i++) {
       Obj o = objs.get(i);
       if (o.isDie()) {
@@ -54,7 +53,7 @@ void draw() {
         o.update(player);
       }
     }
-    
+
     for (int g=0; g<gifts.size(); g++) {
       Gift gift = gifts.get(g);
       if (gift.isDie()) {
@@ -69,17 +68,6 @@ void draw() {
     text("killed spider:"+killed_obj, 20, 60);
     text("fires:"+player.firesnum, 20, 90);
     player.update();
-    
-  } else {
-    // game over
-    print("game over\n");
-    fill(0);
-    rect(0, 0, width, height);
-    fill(255);
-    textFont(font80);
-    text(gameover, width/2-gameover.length()*25, height/2);
-    textFont(font30);
-    text(gameoverinfo, width/2-gameoverinfo.length()*7, height/2+40);
   }
 }
 
@@ -89,19 +77,27 @@ void keyPressed() {
   //print(byte(key));
   if (key == 'a') {
     //left
-    player.left();
+    if (loop) {
+      player.left();
+    }
   }
   if (key == 'd') {
     //right
-    player.right();
+    if (loop) {
+      player.right();
+    }
   }
   if (key == ' ') {
     //space
-    player.fire();
+    if (loop) {
+      player.fire();
+    }
   }
   if (key == 's') {
     //stop
-    player.stop();
+    if (loop) {
+      player.stop();
+    }
   }
   if (key == 'r') {
     //space

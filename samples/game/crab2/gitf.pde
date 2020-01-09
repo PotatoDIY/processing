@@ -9,15 +9,19 @@ class Gift {
   float maxsize;
   float tosize;
   boolean die=false;
+  String[] types={"fire","bomb"};
+  
   Gift(float x, float y) {
     size = 60;
     minsize=size;
     maxsize = size*1.2;
     tosize = maxsize;
-    type = "fire";
+    
+    type = types[(int)random(0,1)];
+    
     this.x=x;
     this.y=y;
-    img = loadImage("fire.png");
+    img = loadImage(type+".png");
   }
   void update(Player player) {
     y+=speed;
@@ -29,6 +33,9 @@ class Gift {
       die=true;
       if (type=="fire") {
         player.firesnum+=20;
+      }
+      if (type=="bomb") {
+        objs = new ArrayList<Obj>();
       }
     } 
     if (!die) {

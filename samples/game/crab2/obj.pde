@@ -36,6 +36,7 @@ class Obj {
         }
       } else {
         loop=false;
+        screen.gameover();
       }
     } else {
       for (int j=0; j<player.fires.size(); j++) {
